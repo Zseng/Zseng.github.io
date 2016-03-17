@@ -4,7 +4,7 @@ body, table, tr, th, td, form, input, ul, li, div, a, h2, p{
     list-style: none;
 }
 html {
-    font-family: "Microsoft Yahei";;
+    font-family: 'Microsoft Yahei';
 }
 nav {
     width: 100%;

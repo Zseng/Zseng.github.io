@@ -99,4 +99,8 @@ $(document).ready(function() {
         });
     };
     selectToggle();
+
+    $('#back_top').on('click',function(){
+        $('body').animate({scrollTop:'0'},'normal');
+    });
 });
