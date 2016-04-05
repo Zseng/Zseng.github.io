@@ -24,7 +24,6 @@ function dealOrder() {
         var excvalue = /(^go)|(^\w+\s\w+)/i;
         var temp = order.value.shift();
         var step, value;
-        console.log(temp);
         if(temp.match(excstep)) {
             step = temp.match(excstep)[0];
         }
@@ -36,7 +35,7 @@ function dealOrder() {
     };
 
     doDrder();
-    if(order.value.length > 1) {
+    if(order.value.length >= 1) {
         laterDeal();
     }
 
@@ -365,7 +364,7 @@ function initListener() {
 //清除输入两端空格
 String.prototype.trim =  function() {
     return this.replace(/^(\s*)|(\s*)$/g, '');
-}
+};
 
 
 
