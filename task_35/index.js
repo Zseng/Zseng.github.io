@@ -18,6 +18,7 @@ function dealOrder() {
     if(len == 0) {
         return;
     }
+    console.log(params.left);
     var timer;
     var doDrder = function() {
         var excstep = /\d+/;
@@ -54,11 +55,9 @@ function dealOrder() {
 function startMove(value, step) {
     var box = document.getElementById('active');
     var drection;
-
     if(flag != true) {
         return;
     }
-
     switch (value) {
         case 'TUN LEF': {
             drection = 3;
@@ -85,7 +84,7 @@ function startMove(value, step) {
             break;
         case 'TRA RIG': {
             if(params.left + step * 50 > 450) {
-                result = false;
+                return;
             }
             move(box, { 'left' : params.left + step * 50});
             params.left += 50 * step;
@@ -93,7 +92,7 @@ function startMove(value, step) {
             break;
         case 'TRA TOP': {
             if(params.top -step * 50 < 0) {
-                result = false;
+                return;
             }
             move(box, { 'top' : params.top - 50 * step});
             params.top -= 50 * step;
@@ -292,11 +291,11 @@ function refresh() {
     var textArea = document.getElementById('order');
     var active = document.getElementById('active');
     refresh.addEventListener('click', function() {
-        aUl.innerHTML = '<li class="sideList" data-id="0">1</li>';
+        aUl.innerHTML = '<li class="sideList">1</li>';
         textArea.value = '';
 
         params.top = 250;
-        params.lef = 250;
+        params.left = 250;
         params.direction = 0;
         params.rotate = 0;
         active.style.left = '250px';
