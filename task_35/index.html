@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task_34</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<div class="container">
+    <div id="introduce">
+        <ul>
+            <li>在输入框中允许输入如下指令，按下按钮后，使得正方形做相应动作</li>
+            <li>GO n：向蓝色边所面向的方向前进一格（一格等同于正方形的边长</li>
+            <li>TUN LEF：向左转（逆时针旋转90度</li>
+            <li>TUN RIG：向右转（顺时针旋转90度）</li>
+            <li>TUN BAC：向右转（旋转180度）</li>
+            <li>TRA LEF n：向屏幕的左侧移动n格，方向不变</li>
+            <li>TRA TOP n：向屏幕的上面移动n格，方向不变</li>
+            <li>TRA RIG n：向屏幕的右侧移动n格，方向不变</li>
+            <li>TRA BOT n：向屏幕的下面移动n格，方向不变</li>
+            <li>MOV LEF n：方向转向屏幕左侧，并向屏幕的左侧移动n格</li>
+            <li>MOV TOP n：方向转向屏幕上面，向屏幕的上面移动n格</li>
+            <li>MOV RIG n：方向转向屏幕右侧，向屏幕的右侧移动n格</li>
+            <li>MOV BOT n：方向转向屏幕下面，向屏幕的下面移动n格</li>
+        </ul>
+        <p>可输入小写字母,格式如上.</p>
+    </div>
+    <div class="top-x">
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>10</li>
+        </ul>
+    </div>
+    <div class="clearFloat">
+        <div class="left-y">
+            <ul>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+            </ul>
+        </div>
+        <div class="map">
+            <ul>
+                <li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li>
+                <li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li>
+                <li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li>
+                <li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li>
+                <li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li>
+                <li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li>
+                <li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li>
+                <li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li>
+                <li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li>
+                <li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li>
+                <div id="active" class="translateRotate">
+                    <div class="head"></div>
+                </div>
+            </ul>
+        </div>
+
+
+    </div>
+    <button id="btn">执行</button>
+    <button id="refresh">refresh</button>
+    <div class="orderbox">
+        <div class="sidebar">
+            <ul>
+                <li class="sideList">1</li>
+                <!--<li>2</li>-->
+                <!--<li class="active">3</li>-->
+            </ul>
+        </div>
+        <textarea name="order" id="order" cols="30" rows="10"></textarea>
+
+    </div>
+
+
+</div>
+
+<script src="index.js"></script>
+</body>
+</html>
