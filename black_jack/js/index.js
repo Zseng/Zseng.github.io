@@ -45,6 +45,138 @@ function Cards() {
         }
     }
 };
+/**
+ *  电脑对战初始化
+ * */
+function initVsComputer() {
+    var photo = document.getElementsByClassName('eachPhoto');
+    var choice = document.getElementsByClassName('choice');
+    var ownarea = document.getElementsByClassName('own_card_are')[0];
+
+    photo[0].style.display = 'block';
+    photo[1].style.display = 'block';
+    choice[0].style.display = 'inline-block';
+    choice[1].style.display = 'inline-block';
+    choice[6].style.display = 'inline-block';
+
+    choice[0].addEventListener('click', function() {
+        if(!flag) {
+            return;
+        }
+        alphaGoSays();
+        passCard(ownarea);
+        alphaGoAction();
+        judgeGame(true);
+
+    }, false);
+    choice[1].addEventListener('click', function() {
+        if(!flag) {
+            return;
+        }
+        alphaGoSays();
+
+        alphaGoAction();
+        choice[0].disabled = true;
+        choice[1].disabled = true;
+        judgeGame();
+
+    }, false);
+
+    choice[6].addEventListener('click', function() {
+        freshGame();
+    }, false);
+
+}
+
+/**
+ *  双人对战初始化
+ * */
+function initVsHuman() {
+    var choice = document.getElementsByClassName('choice');
+    var photoarea = document.getElementsByClassName('eachPhoto');
+    var photo = document.getElementsByClassName('photo');
+    var oppositeName = document.getElementById('oppositeName');
+    var ownName = document.getElementById('ownName');
+    var AlphaGoSay = document.getElementsByClassName('AlphaGoSay');
+
+    photoarea[0].style.display = 'block';
+    photoarea[1].style.display = 'block';
+    AlphaGoSay[0].style.display = 'none';
+    oppositeName.innerHTML = '玩家2';
+    ownName.innerHTML = '玩家1';
+    photo[0].src = 'img/me.png';
+
+    var len = choice.length;
+    for(var i = 2; i < len; i++) {
+        choice[i].style.display = 'inline-block';
+        choice[i].style.marginLeft = '30px';
+    }
+
+    var ownarea = document.getElementsByClassName('own_card_are')[0];
+    var opparea = document.getElementsByClassName('opponent_card_are')[0];
+
+    //玩家1要牌
+    choice[2].addEventListener('click', function() {
+        if(!flag) {
+            return;
+        }
+        passCard(ownarea);
+        judgeGame(true, true);
+        choice[2].disabled = true;
+
+        //如果玩家2没按不要牌,则轮到玩家2操作
+        if(choice[5].disabled == false) {
+            console.log('该玩家2');
+            choice[4].disabled = false;
+        }
+
+
+    }, false);
+
+    //玩家1确定不要牌了
+    choice[3].addEventListener('click', function() {
+        choice[2].disabled = true;
+        choice[3].disabled = true;
+        judgeGame(false, true);
+        if(choice[5].disabled == false) {
+            choice[4].disabled = false;
+        }
+
+    }, false);
+
+    //玩家2要牌
+    choice[4].addEventListener('click', function() {
+        if(!flag) {
+            return;
+        }
+        passCard(opparea, true);
+        judgeGame(true, true);
+        choice[4].disabled = true;
+
+        //如果玩家1没按不要牌,则轮到玩家1操作
+        if(choice[3].disabled == false) {
+            console.log('该玩家1');
+            choice[2].disabled = false;
+        }
+
+    }, false);
+
+    //玩家4确定不要牌了
+    choice[5].addEventListener('click', function() {
+        choice[4].disabled = true;
+        choice[5].disabled = true;
+        judgeGame(false, true);
+        if(choice[3].disabled == false) {
+            choice[2].disabled = false;
+        }
+    }, false);
+
+    choice[6].addEventListener('click', function() {
+        freshGame(true);
+    }, false);
+
+}
+
 
 /**
  * 获取一组新牌
@@ -70,19 +202,36 @@ function getNewCard() {
 
 
 
-
 /**
- * 初始化
+ * 菜单选项处理
  * */
-function init() {
-    listeners();
+function dealMenu(choice) {
+    switch (choice) {
+        case 'menu_1': {
+            initVsComputer();
+            return true
+        }
+            break;
+        case 'menu_2': {
+            initVsHuman();
+            return true
+        }
+            break;
+        case 'menu_3': {
+            alert('暂时还没有此功能')
+            return false;
+        }
+            break;
+
+    }
 }
-init();
+
+
 
 /**
  * 重置游戏
  * */
-function freshGame() {
+function freshGame(double) {
     if(!flag) {
         return;
     }
@@ -90,13 +239,21 @@ function freshGame() {
     var opposite = document.getElementsByClassName('opponent_card_are')[0];
     var btn = document.getElementsByClassName('choice');
     var game_result = document.getElementById('game_result');
-    btn[0].disabled = false;
-    btn[1].disabled = false;
+    var len = btn.length;
+    for(var i = 0; i < len-1; i++) {
+        btn[i].disabled = false;
+    }
 
     game_result.innerHTML = '';
     ownarea.innerHTML = '';
-    opposite.innerHTML = '<div id="card_cover"></div>';
-    getNew.refreshCard();
+    if(double) {
+        opposite.innerHTML = '';
+
+    }
+    else {
+        opposite.innerHTML = '<div id="card_cover"></div>';
+        moveCover();
+    }
     record.opponent.posit = 0;
     record.opponent.value = 0;
     record.opponent.bust = false;
@@ -105,13 +262,14 @@ function freshGame() {
     record.own.value = 0;
     record.own.bust = false;
     record.own.valueArray = [];
+    getNew.refreshCard();
+
     passCard(ownarea);
     passCard(opposite, true);
     passCard(ownarea);
     passCard(opposite, true);
-    moveCover();
     if(firstGame) {
-        btn[2].setAttribute('value', '重新开始');
+        btn[6].setAttribute('value', '重新开始');
         firstGame = false;
     }
     //显示并移动对方遮卡卡背
@@ -123,13 +281,13 @@ function freshGame() {
     }
 }
 
+listeners();
+
 /**
  * 监听器
  * */
 function listeners() {
     var menu = document.getElementsByClassName('menu')[0];
-    var choice = document.getElementsByClassName('choice');
-    var ownarea = document.getElementsByClassName('own_card_are')[0];
     menu.addEventListener('click', function(event) {
         var e = event || window.event;
         var target = e.target || e.srcElement;
@@ -140,33 +298,6 @@ function listeners() {
 
         }
     }, false);
-
-    choice[0].addEventListener('click', function() {
-        if(!flag) {
-            return;
-        }
-        alphaGoSays();
-        passCard(ownarea);
-        alphaGoAction();
-        judgeGame(true);
-
-    }, false);
-    choice[1].addEventListener('click', function() {
-        if(!flag) {
-            return;
-        }
-        alphaGoSays();
-
-        alphaGoAction();
-        choice[0].disabled = true;
-        choice[1].disabled = true;
-        judgeGame();
-
-    }, false);
-
-    choice[2].addEventListener('click', freshGame, false);
-
-
 
 }
 /**
@@ -237,28 +368,6 @@ function checkValue(opponent) {
 
 
 /**
- * 菜单选项处理
- * */
-function dealMenu(choice) {
-    switch (choice) {
-        case 'menu_1': {
-            return true
-        }
-            break;
-        case 'menu_2': {
-            return true
-        }
-            break;
-        case 'menu_3': {
-            alert('暂时还没有此功能')
-            return false;
-        }
-            break;
-
-    }
-}
-
-/**
  * 统计牌的点数
  * */
 function dealValue(value, opponent) {
@@ -318,7 +427,7 @@ function alphaGoAction() {
 
 }
 /**
- * AlphaGo Says
+ * AlphaGo Says 阿法狗的随机对话,你胜利的赞扬和失败的嘲讽
  * */
 function alphaGoSays(finish, win) {
     //阿法狗对话
@@ -338,12 +447,48 @@ function alphaGoSays(finish, win) {
 
 /**
  * 判断输赢
+ * @morecard 表示现在动作为请求更多卡,只判断是否爆牌
+ * @double 表示现在是双人对战,在要牌时爆牌或者双方都按下不要牌时的判断
  * */
-function judgeGame(morecard) {
-    var result = record.opponent.value - record.own.value;
+function judgeGame(morecard, double) {
     var cardcover = document.getElementById('card_cover');
     var gameresult = document.getElementById('game_result');
-    if(record.opponent.bust == true) {
+    var choice = document.getElementsByClassName('choice');
+    var result = record.opponent.value - record.own.value;
+    if(double) {
+        if(record.opponent.bust == true) {
+            gameresult.innerHTML = '玩家1胜利';
+            choice[2].disabled = true;
+            choice[3].disabled = true;
+            choice[4].disabled = true;
+            choice[5].disabled = true;
+        }
+        else if(record.own.bust == true) {
+            gameresult.innerHTML = '玩家2胜利';
+            choice[2].disabled = true;
+            choice[3].disabled = true;
+            choice[4].disabled = true;
+            choice[5].disabled = true;
+        }
+        if(!morecard) {
+            if(choice[3].disabled == true && choice[5].disabled == true) {
+                if(record.opponent.bust == false && record.own.bust == false) {
+                    if (result > 0) {
+                        gameresult.innerHTML = '玩家2胜利';
+                    }
+                    else if (result == 0) {
+                        gameresult.innerHTML = '平局';
+                    }
+                    else {
+                        gameresult.innerHTML = '玩家1胜利';
+                    }
+                    choice[2].disabled = true;
+                    choice[4].disabled = true;
+                }
+            }
+        }
+    }
+    else if(record.opponent.bust == true) {
         alphaGoSays(true, true);
         cardcover.style.display = 'none';
         gameresult.innerHTML = '你赢了';

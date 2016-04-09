@@ -25,9 +25,13 @@ header span {
 
 .photoArea {
     position: relative;
+    width: 100px;
     float: left;
     margin-top: 100px;
     text-align: center;
+}
+.eachPhoto {
+    display: none;
 }
 .photoArea p {
     color: #fff;
@@ -35,14 +39,14 @@ header span {
 .photoArea .photo {
     width: 100px;
     height: 100px;
-    margin-top: 20px;
+    margin-top: 34px;
 }
 .photoArea .AlphaGoSay {
     position: absolute;
     width: 130px;
     height: 40px;
     left: 20px;
-    top: -34px;
+    top: -20px;
     border-radius: 10px;
     background-color: #00aaee;
     text-align: center;
@@ -129,10 +133,9 @@ header span {
 }
 .choice {
     text-align: center;
-    width: 100px;
+    width: 120px;
     height: 40px;
     margin-left: 120px;
-    display: inline-block;
     cursor: pointer;
     background-color: #0ae;
     outline: none;
@@ -143,6 +146,7 @@ header span {
     transition: all 0.3s ease-in-out;
     box-shadow: 0 0 1px 1px #c2c2c2;
     -webkit-transition: all 0.3s ease-in-out;
+    display: none;
 }
 
 
@@ -162,30 +166,42 @@ header span {
 
 .menu {
     position: fixed;
-    width: 360px;
-    height: 240px;
-    border: 1px solid #000;
-    margin-left: calc(50% - 180px);
+    width: 600px;
+    height: 330px;
+    margin-left: calc(50% - 300px);
     margin-top: 30px;
-    /*display: block;*/
-    display: none;
-
+    display: block;
+    /*display: none;*/
+    z-index: 10;
+    box-shadow: 0 0 2px 2px #bd9156;
+    border-width: 20px;
+    background: url("../img/menu_border.png") no-repeat;
+    background-size: 100%;
     animation: transition 1s;
     -webkit-animation: transition 1s;
     -webkit-animation-fill-mode: forwards;  /*动画停留在结束时的动作*/
 
 }
+.menu img {
+    width: 80px;
+    height: 70px;
+    position: absolute;
+    left: calc(50% - 40px);
+    top: -30px;
+}
 .menuList {
     width: 200px;
-    height: 60px;
-    line-height: 60px;
-    margin: 10px auto;
+    height: 40px;
+    line-height: 40px;
+    margin: 40px auto;
     text-align: center;
-    border: 1px solid #000;
     cursor: pointer;
+    border-width: 10px;
+    border-image: url("../img/border.png") 10% 10% 10% 10%;
 }
 .menuList span {
     font-size: 20px;
+    color: #fff;
 }
 
 

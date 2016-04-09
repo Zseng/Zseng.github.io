@@ -9,6 +9,7 @@
 <body>
 
     <div class="menu">
+        <img src="img/menu.png" alt="logo">
         <div class="menuList" id="menu_1"><span>挑战电脑</span></div>
         <div class="menuList" id="menu_2"><span>双人对战</span></div>
         <div class="menuList" id="menu_3"><span>联机对战</span></div>
@@ -22,15 +23,19 @@
         <div class="gameArea clearFloat">
             <div class="sidebar">
                 <div class="photoArea">
-                    <div class="AlphaGoSay">
-                        <span>我是阿法狗,你怕了吗?</span>
-                        <div class="triangle"></div>
+                    <div class="eachPhoto">
+                        <div class="AlphaGoSay">
+                            <span>我是阿法狗,你怕了吗?</span>
+                            <div class="triangle"></div>
+                        </div>
+                        <img src="img/AlphaGo.png" class="photo" alt="AlphaGo">
+                        <p id="oppositeName">AlphaGo</p>
                     </div>
-                    <img src="img/AlphaGo.png" class="photo" alt="AlphaGo">
-                    <p class="playerName">AlphaGo</p>
+                    <div class="eachPhoto">
+                        <img src="img/me.png" class="photo" alt="me">
+                        <p id="ownName">萌萌哒的我</p>
+                    </div>
 
-                    <img src="img/me.png" class="photo" alt="me">
-                    <p>萌萌哒的我</p>
                 </div>
                 <div class="card_package">
                     <img src="img/package.png" alt="package">
@@ -57,8 +62,14 @@
         </div>
 
         <div class="choiceBox">
-            <input type="button" class="choice" value="再要一张牌" id="addCard" disabled>
-            <input type="button" class="choice" value="不要牌了" id="stand" disabled>
+            <input type="button" class="choice" value="再要一张牌" disabled>
+            <input type="button" class="choice" value="不要牌了" disabled>
+
+            <input type="button" class="choice" value="玩家1再要一张牌" disabled>
+            <input type="button" class="choice" value="玩家1不要牌了" disabled>
+            <input type="button" class="choice" value="玩家2再要一张牌" disabled>
+            <input type="button" class="choice" value="玩家2不要牌了" disabled>
+
             <input type="button" class="choice" value="开始游戏" id="refreshGame">
         </div>
 
