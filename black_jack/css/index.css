@@ -168,6 +168,7 @@ header span {
     position: fixed;
     width: 600px;
     height: 330px;
+    margin-left: 30%;  /*对不支持calc的兼容*/
     margin-left: calc(50% - 300px);
     margin-top: 30px;
     display: block;
@@ -175,7 +176,7 @@ header span {
     z-index: 10;
     box-shadow: 0 0 2px 2px #bd9156;
     border-width: 20px;
-    background: url("../img/menu_border.png") no-repeat;
+    background: url("../img/menu_back.png") no-repeat;
     background-size: 100%;
     animation: transition 1s;
     -webkit-animation: transition 1s;
@@ -186,6 +187,7 @@ header span {
     width: 80px;
     height: 70px;
     position: absolute;
+    left: 43%;
     left: calc(50% - 40px);
     top: -30px;
 }

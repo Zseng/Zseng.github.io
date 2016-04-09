@@ -126,7 +126,6 @@ function initVsHuman() {
 
         //如果玩家2没按不要牌,则轮到玩家2操作
         if(choice[5].disabled == false) {
-            console.log('该玩家2');
             choice[4].disabled = false;
         }
 
@@ -155,7 +154,6 @@ function initVsHuman() {
 
         //如果玩家1没按不要牌,则轮到玩家1操作
         if(choice[3].disabled == false) {
-            console.log('该玩家1');
             choice[2].disabled = false;
         }
 
