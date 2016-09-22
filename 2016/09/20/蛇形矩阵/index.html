@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="Zseng's blog">
 <meta property="og:description" content="这个博客搭好后就没管过了，最近比较闲，于是想静下来写一些东西，还请各位大神指出不对的地方。
 曾经有个面试官问过我，你觉得作为一名优秀的前端工程师，应该具有哪些素质。在我看来，一名优秀的前端工程师，应该是一名优秀的全栈工程师。我们知道，搞前端，要和美工、后台、设计、产品等等打交道，等等，纠正一下我的叫法，这里应该叫设计师而不是美工，这是一名真正优秀的前端大佬批评过我的，要正确的称呼我们的设计师哥哥">
-<meta property="og:updated_time" content="2016-09-20T01:22:06.000Z">
+<meta property="og:updated_time" content="2016-09-22T08:43:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="蛇形矩阵">
 <meta name="twitter:description" content="这个博客搭好后就没管过了，最近比较闲，于是想静下来写一些东西，还请各位大神指出不对的地方。
@@ -150,7 +150,7 @@
             
               <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
             
-            Startseite
+            Home
           </a>
         </li>
       
@@ -160,7 +160,7 @@
             
               <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -223,7 +223,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <span class="post-meta-item-text">Posted on</span>
             <time itemprop="dateCreated" datetime="2016-09-20T08:25:04+08:00" content="2016-09-20">
               2016-09-20
             </time>
@@ -265,6 +265,19 @@
 </blockquote>
 <p>我们先来看看题目：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">输入一个数n，代表蛇形矩阵是n*n</span><br><span class="line">例如输入：3，</span><br><span class="line">输出：</span><br><span class="line">   1 2 3</span><br><span class="line">   8 9 4</span><br><span class="line">   7 6 5</span><br><span class="line">输入： 6,</span><br><span class="line">输出： </span><br><span class="line">   1  2  3  4  5  6</span><br><span class="line">   20 21 22 23 24 7</span><br><span class="line">   19 32 33 34 25 8</span><br><span class="line">   18 31 36 35 26 9</span><br><span class="line">   17 30 29 28 27 10</span><br><span class="line">   16 15 14 13 12 11</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这道题是在算法层面考得不多，关键在于逻辑的理解，这样的矩阵要用二维数组来存储对应位置的数字，那我们怎么找到规律存储对应位置的数字呢？我们可以用矩阵的分圈处理来解决这个问题。</p>
+<p>在矩阵中用左上角的左边和右下角的坐标来表示一个子矩阵，例如，当(tR, tC) = (0, 0), (dR, dC) = (5, 5)时，表示的就时整个矩阵，最外层部分如下：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1  2  3  4  5  6</span><br><span class="line">20             7</span><br><span class="line">19             8</span><br><span class="line">18             9</span><br><span class="line">17             10</span><br><span class="line">16 15 14 13 12 11</span><br></pre></td></tr></table></figure>
+<p>我们可以看到，整个矩阵外层是依次递增的，我们定义一个初始index = 1, 这时我们可以根据下标依次增加index, 并以顺时针的方式存入对应下标位置。接下来让tR和tC加1，即(tR, tC) = (1, 1), 让dR, dC减1，即(dR, dC) = (4, 4),这时表示的子矩阵如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">21 22 23 24 </span><br><span class="line">32       25 </span><br><span class="line">31       26</span><br><span class="line">30 29 28 27</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>然后重复以上动作就行，直到左上角坐标跑到了右下角坐标的右方或下方，循环体可以是 while (tR &lt;= dC) 整个过程就停止。大致思路如此。</p>
+<p>以下是代码</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">	</span><br><span class="line">//初始化一个n*n的二维矩阵</span><br><span class="line">function initMatrix(n) &#123;</span><br><span class="line">      var arr = [];</span><br><span class="line">      for (var i = 0; i &lt; n; i++) &#123;</span><br><span class="line">          arr[i] = [];</span><br><span class="line">      &#125;</span><br><span class="line">      return arr;</span><br><span class="line">  &#125;</span><br><span class="line">  function createMatrix(n) &#123;</span><br><span class="line">      var arr = initMatrix(n); //tR坐标</span><br><span class="line">      var begin = 0; //dC坐标      </span><br><span class="line">      var end = n - 1;</span><br><span class="line">      var num = 0;</span><br><span class="line">      while (begin &lt;= end) &#123;</span><br><span class="line">          num = getArray(arr, begin, end, num);</span><br><span class="line">          begin++;</span><br><span class="line">          end--;</span><br><span class="line">      &#125;</span><br><span class="line">      //打印出赋值好的蛇形矩阵</span><br><span class="line">     for (var i = 0; i &lt; n; i++) &#123;</span><br><span class="line">         var nowRow = &apos;&apos;;</span><br><span class="line">         for (var j = 0; j &lt; n; j++) &#123;</span><br><span class="line">             nowRow += arr[i][j];</span><br><span class="line">         &#125;</span><br><span class="line">         console.log(nowRow);</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  function getArray(arr, begin, end, num) &#123;</span><br><span class="line">      if (begin == end) &#123;</span><br><span class="line">          arr[begin][end] = ++num;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">          var curR = begin;</span><br><span class="line">          var curC = begin;</span><br><span class="line">          //延着外围矩阵顺时针填入当前数值</span><br><span class="line">          while (curC &lt; end)</span><br><span class="line">              arr[begin][curC++] = ++num;</span><br><span class="line">          while (curR &lt; end)</span><br><span class="line">              arr[curR++][end] = ++num;</span><br><span class="line">          while (curC &gt; begin)</span><br><span class="line">              arr[end][curC--] = ++num;</span><br><span class="line">          while (curR &gt; begin)</span><br><span class="line">              arr[curR--][begin] = ++num;</span><br><span class="line">      &#125;</span><br><span class="line">      //返回当前数值，以便内层矩阵的赋值</span><br><span class="line">      return num;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -360,10 +373,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Inhaltsverzeichnis
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
-            Übersicht
+            Overview
           </li>
         </ul>
       
@@ -380,7 +393,7 @@
           <div class="site-state-item site-state-posts">
             <a href="/archives">
               <span class="site-state-item-count">3</span>
-              <span class="site-state-item-name">Artikel</span>
+              <span class="site-state-item-name">posts</span>
             </a>
           </div>
           
@@ -390,7 +403,7 @@
             <div class="site-state-item site-state-tags">
               <a href="/tags">
                 <span class="site-state-item-count">3</span>
-                <span class="site-state-item-name">Tags</span>
+                <span class="site-state-item-name">tags</span>
               </a>
             </div>
           
@@ -422,7 +435,7 @@
               
             
             
-              <p class="post-toc-empty">Dieser Artikel hat kein Inhaltsverzeichnis</p>
+              <p class="post-toc-empty">This post does not have a Table of Contents</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
@@ -452,7 +465,7 @@
 </div>
 
 <div class="powered-by">
-  Erstellt mit  <a class="theme-link" href="http://hexo.io">Hexo</a>
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
