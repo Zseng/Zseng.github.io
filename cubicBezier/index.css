@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+#canvas-container {
+    width: 300px;
+    height: 700px;
+    position: absolute;
+    left: 100px;
+    /*border: 1px solid #000;*/
+}
+.control-point {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 18px;
+    border: 1px solid #a0a0a0;
+    background-color: #fff;
+}
+.bottom-left {
+    left: -10px;
+    top: 490px;
+
+}
+.top-right {
+    top: 190px;
+    right: -10px;
+}
+
+.point-blue {
+    left: 0;
+    top: 200px;
+    background-color: #00aabb;
+    cursor: pointer;
+}
+
+.point-red {
+    left: 280px;
+    top: 480px;
+    background-color: #ff0088;
+    cursor: pointer;
+}
+
+
+.gradient-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -10;
+    width: 300px;
+    height: 200px;
+    background: -webkit-linear-gradient(bottom, #f1f1f1, #fff);
+
+}
+.gradient-bottom {
+    position: absolute;
+    z-index: -10;
+    top: 500px;
+    left: 0;
+    width: 300px;
+    height: 200px;
+    background: -webkit-linear-gradient(top, #f1f1f1, #fff);
+}
+
+
+
+.header {
+    margin-left: 432px;
+}
+h2:nth-of-type(1) {
+    margin-top: 34px;
+    font-size: 30px;
+}
+.red {
+    color: #ff0088;
+}
+.blue {
+    color: #00aabb;
+}
+
+h2:nth-of-type(2) {
+    float: left;
+    font-size: 34px;
+    margin-top: 50px;
+}
+
+.go {
+    float: left;
+    width: 42px;
+    height: 26px;
+    margin-top: 52px;
+    margin-left: 10px;
+    line-height: 26px;
+    text-align: center;
+    border-radius: 6px;
+    background-color: #ccc;
+    cursor: pointer;
+    border: none;
+}
+.go:hover {
+    background-color: #ff0088;
+}
+.go > span {
+    color: #fff;
+}
+
+.time {
+    margin-top: 100px;
+    display: block;
+}
+
+.content {
+    position: relative;
+    height: 200px;
+    margin-left: 432px;
+    padding: 20px;
+}
+#example {
+    position: absolute;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background-color: #ff0088;
+    border-radius: 10px;
+}
+.move {
+    animation: animate 3s;
+}
+
+@keyframes animate {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: 300px;
+    }
+}
