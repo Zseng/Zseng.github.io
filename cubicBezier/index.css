@@ -122,16 +122,35 @@ h2:nth-of-type(2) {
     height: 60px;
     background-color: #ff0088;
     border-radius: 10px;
+    animation-fill-mode: forwards;
+}
+
+#compare {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background-color: #00aabb;
+    border-radius: 10px;
 }
 .move {
-    animation: animate 3s;
+    animation: animate 4s;
+}
+
+.compareMove {
+    animation: animate 4s linear;
 }
 
 @keyframes animate {
     0% {
         left: 0;
     }
+    30% {
+        transform: rotate(0deg);
+    }
     100% {
+        transform: rotate(180deg);
         left: 300px;
     }
 }

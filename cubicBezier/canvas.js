@@ -85,16 +85,19 @@ if (drawing.getContext) {
 
 var btn = document.querySelector('.go');
 var moveObj = document.querySelector('#example');
+var compare = document.querySelector('#compare');
 btn.addEventListener('click', function () {
     var red = document.querySelectorAll('.red');
     var blue = document.querySelectorAll('.blue');
 
     moveObj.classList.add("move");
     moveObj.style.animationTimingFunction = "cubic-bezier("+red[0].innerHTML+", "+red[1].innerHTML +","+ blue[0].innerHTML +","+ blue[1].innerHTML+")";
+    compare.classList.add("compareMove");
     btn.disabled = true;
 });
 
 moveObj.addEventListener('animationend', function () {
     moveObj.classList.remove("move");
+    compare.classList.remove("compareMove");
     btn.disabled = false;
 });

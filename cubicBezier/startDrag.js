@@ -99,7 +99,6 @@ function calcArgs(point_X, point_Y) {
     resultX = point_X / 300 + 0.03;
     resultY = (300 - (point_Y - 200)) / 300 - 0.03;
 
-    console.log(point_Y);
     return {
         x: resultX.toFixed(2),
         y: resultY.toFixed(2)
